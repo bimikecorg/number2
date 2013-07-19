@@ -1,0 +1,29 @@
+@Echo off
+:: This script rolls back CORE Code ONLY from the latest Backup to ALL sites on ALL DR webservers
+:: Mike Corridon
+:: Modified December 4, 2009
+
+
+Echo CORE Rollback to the DR SFTP Directory in Progress...
+@echo off 
+:: This line rolls back the CORE code to the DR SFTP Directory on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\CORE" "\\10.128.100.20\E$\SFTPRoot\brightidea\CORE\CORE" /MIR /log:\\10.128.100.20\E$\robologs\CORE_Rollback_SFTP_DIR /v /NP
+
+Echo CORE Rollback to the DR SFTP Directory Complete.
+
+
+
+Echo CORE Rollback of SJCBGIDWA03P in Progress...
+@echo off 
+:: These 3 lines rolls back the CORE code to ALL sites on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\CORE" "\\10.128.100.20\E$\inetpub\wwwroot\brightidea.com\CORE" /MIR /log:\\10.128.100.20\E$\robologs\CORE_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\na5.Brightidea.com\CORE" "\\10.128.100.20\E$\inetpub\wwwroot\na5.brightidea.com\CORE" /MIR /log+:\\10.128.100.20\E$\robologs\CORE_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\www.Brightidea.com\CORE" "\\10.128.100.20\E$\inetpub\wwwroot\www.brightidea.com\CORE" /MIR /log+:\\10.128.100.20\E$\robologs\CORE_Rollback_DR /v /NP
+
+
+
+Echo CORE Rollback of SJCBGIDWA03P Complete.
+
+

@@ -1,0 +1,20 @@
+@Echo off
+:: This script rolls back Platform Code ONLY from the latest Backup to ALL sites on ALL DR webservers
+:: Mike Corridon
+:: Modified December 4, 2009
+
+
+Echo Platform Rollback of SJCBGIDWA03P in Progress...
+@echo off 
+:: These 4 lines backup ALL sites on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\od" "\\10.128.100.20\E$\inetpub\wwwroot\brightidea.com\od" /MIR /log:\\10.128.100.20\E$\robologs\Platform_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\v50" "\\10.128.100.20\E$\inetpub\wwwroot\brightidea.com\v50" /MIR /log:\\10.128.100.20\E$\robologs\Platform_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\na5.Brightidea.com\ondemand" "\\10.128.100.20\E$\inetpub\wwwroot\na5.brightidea.com\ondemand" /MIR /log+:\\10.128.100.20\E$\robologs\Platform_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\www.Brightidea.com\v50" "\\10.128.100.20\E$\inetpub\wwwroot\www.brightidea.com\v50" /MIR /log+:\\10.128.100.20\E$\robologs\Platform_Rollback_DR /v /NP
+
+
+Echo Platform Rollback of SJCBGIDWA03P Complete.
+

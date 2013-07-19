@@ -1,0 +1,27 @@
+@Echo off
+:: This script rolls back WebStorm Code ONLY from the latest Backup to ALL sites on ALL DR webservers
+:: Mike Corridon
+:: Modified December 4, 2009
+
+
+Echo WebStorm Rollback to the DR SFTP Directory in Progress...
+@echo off 
+:: This line rolls back the WebStorm code to the SFTP Directory on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\SB" "\\10.128.100.20\E$\SFTPRoot\brightidea\Webstorm\ct" /MIR /log:\\10.128.100.20\E$\robologs\Webstorm_Rollback_SFTP_DIR_DR /v /NP
+
+Echo WebStorm Rollback to the DR SFTP Directory Complete.
+
+
+Echo WebStorm Rollback of SJCBGIDWA03P in Progress...
+@echo off 
+:: These 3 lines rolls back the WebStorm code to ALL sites on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\ct" "\\10.128.100.20\E$\inetpub\wwwroot\brightidea.com\ct" /MIR /log:\\10.128.100.20\E$\robologs\WebStorm_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\na5.Brightidea.com\ct" "\\10.128.100.20\E$\inetpub\wwwroot\na5.brightidea.com\ct" /MIR /log+:\\10.128.100.20\E$\robologs\WebStorm_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\www.Brightidea.com\ct" "\\10.128.100.20\E$\inetpub\wwwroot\www.brightidea.com\ct" /MIR /log+:\\10.128.100.20\E$\robologs\WebStorm_Rollback_DR /v /NP
+
+
+Echo WebStorm Rollback of SJCBGIDWA03P Complete.
+
+

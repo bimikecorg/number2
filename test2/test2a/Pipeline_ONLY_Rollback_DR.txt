@@ -1,0 +1,29 @@
+@Echo off
+:: This script rolls back Pipeline Code ONLY from the latest Backup to ALL sites on ALL DR webservers
+:: Mike Corridon
+:: Modified December 4, 2009
+
+
+Echo Pipeline Rollback to the DR SFTP Directory in Progress...
+@echo off 
+:: This line rolls back the Pipeline code to the SFTP Directory on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\PL" "\\10.128.100.20\E$\SFTPRoot\brightidea\Pipeline\PL" /MIR /log:\\10.128.100.20\E$\robologs\Pipeline_Rollback_SFTP_DIR_DR /v /NP
+
+Echo Pipeline Rollback to the DR SFTP Directory Complete.
+
+
+Echo Pipeline Rollback of SJCBGIDWA03P in Progress...
+@echo off 
+:: These 3 lines rolls back the Pipeline code to ALL sites on the WA01P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com\PL" "\\10.128.100.20\E$\inetpub\wwwroot\brightidea.com\PL" /MIR /log:\\10.128.100.20\E$\robologs\Pipeline_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\na5.Brightidea.com\PL" "\\10.128.100.20\E$\inetpub\wwwroot\na5.brightidea.com\PL" /MIR /log+:\\10.128.100.20\E$\robologs\Pipeline_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\www.Brightidea.com\PL" "\\10.128.100.20\E$\inetpub\wwwroot\www.brightidea.com\PL" /MIR /log+:\\10.128.100.20\E$\robologs\Pipeline_Rollback_DR /v /NP
+
+
+
+Echo Pipeline Rollback of SJCBGIDWA03P Complete.
+
+
+

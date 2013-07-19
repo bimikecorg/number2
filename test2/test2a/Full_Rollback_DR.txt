@@ -1,0 +1,21 @@
+@Echo off
+:: This script rolls back ALL Code from the latest Backup to ALL sites on ALL DR webservers
+:: Mike Corridon
+:: Modified December 4, 2009
+
+
+
+Echo Full Rollback of SJCBGIDWA03P in Progress...
+@echo off 
+:: These 3 lines Roll Back ALL Code to ALL sites on the SJCBGIDWA03P webserver
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\Brightidea.com" "\\10.128.100.20\E$\inetpub\wwwroot\brightidea.com" /MIR /log:\\10.128.100.20\E$\robologs\Full_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\na5.Brightidea.com" "\\10.128.100.20\E$\inetpub\wwwroot\na5.brightidea.com" /MIR /log+:\\10.128.100.20\E$\robologs\Full_Rollback_DR /v /NP
+
+robocopy "\\10.128.100.20\E$\inetpub\wwwroot\backups\www.Brightidea.com" "\\10.128.100.20\E$\inetpub\wwwroot\www.brightidea.com" /MIR /log+:\\10.128.100.20\E$\robologs\Full_Rollback_DR /v /NP
+
+
+
+Echo Full Rollback of SJCBGIDWA03P Complete.
+
+

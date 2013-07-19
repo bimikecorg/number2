@@ -1,0 +1,7 @@
+test1 4:03 without post commit hook
+
+test2 4:16 with post commit hook
+
+test3 4:27 modified path in post commit run.bat
+
+test4 4:39 modified temp log path
